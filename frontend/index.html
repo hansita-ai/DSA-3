@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SequenceLab | DNA & Protein Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="grid-background"></div><div class="glow glow-one"></div><div class="glow glow-two"></div>
+
+<header class="navbar">
+<a href="#" class="logo"><div class="logo-symbol">⌬</div><div class="logo-text">Sequence<span>Lab</span></div></a>
+<nav><a href="#home">Home</a><a href="#analyzer">Analyzer</a><a href="#algorithms">Algorithms</a><a href="#about">About</a></nav>
+<button class="nav-button" onclick="openAnalyzer()">Launch Analyzer <span>↗</span></button>
+</header>
+
+<section id="home" class="hero">
+<div class="hero-content">
+<div class="eyebrow"><span></span>BIOINFORMATICS • DATA STRUCTURES & ALGORITHMS</div>
+<h1>Decode the<br>language of <span>life.</span></h1>
+<p class="hero-description">Explore DNA and protein sequences using efficient pattern matching and global sequence alignment algorithms.</p>
+<div class="hero-buttons">
+<button class="primary-button" onclick="openAnalyzer()">Start Analysis <strong>→</strong></button>
+<a href="#algorithms" class="secondary-button">Explore Algorithms</a>
+</div>
+<div class="hero-stats"><div><strong>03</strong><small>Core Algorithms</small></div><div><strong>DNA</strong><small>Sequence Analysis</small></div><div><strong>NW</strong><small>Global Alignment</small></div></div>
+</div>
+
+<div class="hero-visual">
+<div class="dna-card">
+<div class="scan-line"></div>
+<div class="dna-helix"><div class="dna-rail left"></div><div class="dna-rail right"></div>
+<div class="dna-base base1"></div><div class="dna-base base2"></div><div class="dna-base base3"></div><div class="dna-base base4"></div><div class="dna-base base5"></div><div class="dna-base base6"></div><div class="dna-base base7"></div>
+</div>
+<div class="sequence-display"><div><small>SEQUENCE SIGNAL</small><strong>ATGCGTACGATCG</strong></div><div class="status">● LIVE</div></div>
+<div class="floating-card card-one">KMP <b>O(n+m)</b></div>
+<div class="floating-card card-two">Z-FUNCTION <b>O(n+m)</b></div>
+<div class="floating-card card-three">ALIGNMENT <b>DP</b></div>
+</div>
+</div>
+</section>
+
+<section id="analyzer" class="section analyzer-section">
+<div class="section-heading"><div><span>01 / ANALYSIS CONSOLE</span><h2>Analyze your sequence.</h2></div><p>Select an algorithm and provide your sequence data to explore the analysis.</p></div>
+<div class="analyzer-console">
+<aside class="algorithm-sidebar">
+<label>SELECT ALGORITHM</label>
+<button class="algorithm-tab active" onclick="selectAlgorithm('kmp',this)"><div class="algorithm-icon">⌁</div><div><strong>KMP</strong><small>Pattern Matching</small></div><em>01</em></button>
+<button class="algorithm-tab" onclick="selectAlgorithm('z',this)"><div class="algorithm-icon">Z</div><div><strong>Z-Function</strong><small>Pattern Search</small></div><em>02</em></button>
+<button class="algorithm-tab" onclick="selectAlgorithm('nw',this)"><div class="algorithm-icon">↔</div><div><strong>Needleman–Wunsch</strong><small>Global Alignment</small></div><em>03</em></button>
+<div class="sidebar-note"><span>●</span> Algorithm console ready.</div>
+</aside>
+
+<div class="workspace">
+<div class="workspace-header"><div><span class="live-dot"></span><span id="algorithmTitle">KMP PATTERN MATCHING</span></div><button onclick="resetAnalyzer()">Reset</button></div>
+
+<div id="kmpPanel" class="algorithm-panel">
+<div class="input-grid"><div class="input-group"><label>TEXT SEQUENCE</label><textarea id="kmpText">ATGCGATGACCTAGATG</textarea></div><div class="input-group"><label>PATTERN</label><input id="kmpPattern" value="ATG"></div></div>
+<button class="run-button" onclick="demoKMP()">Run KMP Analysis <span>→</span></button>
+</div>
+
+<div id="zPanel" class="algorithm-panel hidden">
+<div class="input-grid"><div class="input-group"><label>TEXT SEQUENCE</label><textarea id="zText">ATGCGATGACCTAGATG</textarea></div><div class="input-group"><label>PATTERN</label><input id="zPattern" value="ATG"></div></div>
+<button class="run-button" onclick="demoZFunction()">Run Z-Function Analysis <span>→</span></button>
+</div>
+
+<div id="nwPanel" class="algorithm-panel hidden">
+<div class="input-grid"><div class="input-group"><label>SEQUENCE A</label><textarea id="sequenceA">ACGT</textarea></div><div class="input-group"><label>SEQUENCE B</label><textarea id="sequenceB">AGT</textarea></div></div>
+<div class="score-settings"><div><label>MATCH</label><input type="number" id="matchScore" value="1"></div><div><label>MISMATCH</label><input type="number" id="mismatchScore" value="-1"></div><div><label>GAP</label><input type="number" id="gapScore" value="-2"></div></div>
+<button class="run-button" onclick="demoNeedlemanWunsch()">Run Needleman–Wunsch <span>→</span></button>
+</div>
+
+<div id="resultBox" class="result-box"><div class="empty-result"><div class="empty-icon">⌬</div><h3>Ready for analysis</h3><p>Your algorithm output will appear here.</p></div></div>
+</div>
+</div>
+</section>
+
+<section id="algorithms" class="section algorithms-section">
+<div class="center-heading"><span>02 / ALGORITHM SUITE</span><h2>Three algorithms.<br>One sequence lab.</h2><p>Explore the algorithms used in our sequence analysis project.</p></div>
+<div class="algorithm-cards">
+<article class="algorithm-card"><div class="card-number">01</div><div class="big-icon">⌁</div><h3>KMP</h3><p>Knuth–Morris–Pratt efficiently searches for patterns inside biological sequences.</p><code>TIME • O(n + m)</code></article>
+<article class="algorithm-card"><div class="card-number">02</div><div class="big-icon">Z</div><h3>Z-Function</h3><p>Uses a Z-array to determine matching prefixes and locate patterns efficiently.</p><code>TIME • O(n + m)</code></article>
+<article class="algorithm-card"><div class="card-number">03</div><div class="big-icon">↔</div><h3>Needleman–Wunsch</h3><p>Uses dynamic programming and traceback to generate an optimal global sequence alignment.</p><code>DYNAMIC PROGRAMMING</code></article>
+</div>
+</section>
+
+<section id="about" class="section about-section">
+<div><span class="section-number">03 / PROJECT</span><h2>From algorithms<br>to <span>bioinformatics.</span></h2></div>
+<div class="about-content"><p>This project demonstrates the practical application of Data Structures and Algorithms to DNA and protein sequence analysis.</p><p>Needleman–Wunsch performs global alignment using match scores, mismatch penalties and gap penalties, followed by traceback to obtain the optimal alignment.</p><div class="technology-tags"><span>Dynamic Programming</span><span>Pattern Matching</span><span>Matrix Construction</span><span>Traceback</span></div></div>
+</section>
+
+<footer><div>SEQUENCELAB</div><div>DNA • PROTEIN • ALIGNMENT</div><div>DSA PROJECT</div></footer>
+<script src="script.js"></script>
+</body>
+</html>
